@@ -19,7 +19,7 @@ O objetivo deste relatório é auxiliar o Sr. João a tomar uma decisão estrat�
 
 A seguir, o gráfico mostra o faturamento total de cada loja:
 
-📈 **`# Exibir aqui o gráfico de faturamento por loja`**
+![Faturamento Geral](https://github.com/TyrGunllod/alura_store/blob/main/images/fat_geral.png)
 
 - **Loja 1**: Maior faturamento geral, indicando forte desempenho.
 - **Loja 2**: Faturamento intermediário e estável.
