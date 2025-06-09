@@ -19,7 +19,7 @@ O objetivo deste relatório é auxiliar o Sr. João a tomar uma decisão estrat�
 
 A seguir, o gráfico mostra o faturamento total de cada loja:
 
-![Faturamento Geral](https://github.com/TyrGunllod/alura_store/blob/main/images/fat_geral.png)
+![Faturamento Geral](images/fat_geral.png)
 
 - **Loja 1**: Maior faturamento geral, indicando forte desempenho.
 - **Loja 2**: Faturamento intermediário e estável.
@@ -30,7 +30,7 @@ A seguir, o gráfico mostra o faturamento total de cada loja:
 
 ### 📦 Categorias de Produtos
 
-📊 **`# Exibir gráfico de vendas por categoria em cada loja`**
+![Faturamento Categorias](images/fat_cat.png)
 
 - **Loja 1**: Maior diversidade de categorias vendidas.
 - **Loja 2**: Foco em poucas categorias com vendas concentradas.
@@ -41,7 +41,7 @@ A seguir, o gráfico mostra o faturamento total de cada loja:
 
 ### 🌟 Avaliação Média dos Clientes
 
-📉 **`# Exibir gráfico de avaliação média por loja`**
+![Avaliação Média](images/med_aval.png)
 
 - **Loja 2**: Melhor avaliação média dos clientes.
 - **Loja 1**: Avaliação positiva, mas não a mais alta.
@@ -52,8 +52,10 @@ A seguir, o gráfico mostra o faturamento total de cada loja:
 
 ### 🛒 Produtos Mais e Menos Vendidos
 
-📈 **`# Exibir gráfico dos produtos mais vendidos por loja`**  
-📉 **`# Exibir gráfico dos produtos menos vendidos por loja`**
+![Produtos mai e menos vendidos -  Loja 1](images/qtv_l1.png) 
+![Produtos mai e menos vendidos -  Loja 2](images/qtv_l2.png)
+![Produtos mai e menos vendidos -  Loja 3](images/qtv_l3.png)
+![Produtos mai e menos vendidos -  Loja 4](images/qtv_l4.png)
 
 - **Loja 1**: Mais produtos com alta saída.
 - **Loja 2**: Boa performance com poucos produtos líderes.
@@ -64,7 +66,7 @@ A seguir, o gráfico mostra o faturamento total de cada loja:
 
 ### 🚚 Frete Médio
 
-📉 **`# Exibir gráfico de frete médio por loja`**
+![Frete Médio](images/frete.png)
 
 - **Loja 2**: Frete mais barato.
 - **Loja 1**: Frete equilibrado.
@@ -75,7 +77,7 @@ A seguir, o gráfico mostra o faturamento total de cada loja:
 
 ### 🗺️ Distribuição Geográfica das Vendas
 
-📍 **`# Exibir mapa de calor ou gráfico de dispersão com latitude/longitude`**
+![Mapa](images/mapa.png)
 
 - **Loja 1**: Alta concentração de vendas em áreas densas.
 - **Loja 2**: Boas vendas regionais com alta satisfação.
