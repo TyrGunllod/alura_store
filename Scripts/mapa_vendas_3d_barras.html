@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>pydeck</title>
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <script src='https://cdn.jsdelivr.net/npm/@deck.gl/jupyter-widget@~9.0.*/dist/index.js'></script>
+    <style>
+    body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#deck-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+#deck-container canvas {
+  z-index: 1;
+  background: none;
+}
+    </style>
+  </head>
+  <body>
+    <div id="deck-container">
+    </div>
+  </body>
+  <script>
+    const container = document.getElementById('deck-container');
+    const jsonInput = {
+  "initialViewState": {
+    "latitude": -20.53405935347112,
+    "longitude": -47.17117647058823,
+    "pitch": 45,
+    "zoom": 4
+  },
+  "layers": [
+    {
+      "@@type": "ColumnLayer",
+      "autoHighlight": true,
+      "data": [
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -53.95,
+            -30.17
+          ],
+          "elevation": 7750,
+          "lat": -30.17,
+          "lon": -53.5,
+          "lon_ajustada": -53.95,
+          "vendas": 155
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -53.65,
+            -30.17
+          ],
+          "elevation": 6200,
+          "lat": -30.17,
+          "lon": -53.5,
+          "lon_ajustada": -53.65,
+          "vendas": 124
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -53.35,
+            -30.17
+          ],
+          "elevation": 6400,
+          "lat": -30.17,
+          "lon": -53.5,
+          "lon_ajustada": -53.35,
+          "vendas": 128
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -53.05,
+            -30.17
+          ],
+          "elevation": 6350,
+          "lat": -30.17,
+          "lon": -53.5,
+          "lon_ajustada": -53.05,
+          "vendas": 127
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -51.400000000000006,
+            -27.45
+          ],
+          "elevation": 4750,
+          "lat": -27.45,
+          "lon": -50.95,
+          "lon_ajustada": -51.400000000000006,
+          "vendas": 95
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -51.1,
+            -27.45
+          ],
+          "elevation": 4700,
+          "lat": -27.45,
+          "lon": -50.95,
+          "lon_ajustada": -51.1,
+          "vendas": 94
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -50.800000000000004,
+            -27.45
+          ],
+          "elevation": 3850,
+          "lat": -27.45,
+          "lon": -50.95,
+          "lon_ajustada": -50.800000000000004,
+          "vendas": 77
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -50.5,
+            -27.45
+          ],
+          "elevation": 4000,
+          "lat": -27.45,
+          "lon": -50.95,
+          "lon_ajustada": -50.5,
+          "vendas": 80
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -52.0,
+            -24.89
+          ],
+          "elevation": 6400,
+          "lat": -24.89,
+          "lon": -51.55,
+          "lon_ajustada": -52.0,
+          "vendas": 128
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -51.699999999999996,
+            -24.89
+          ],
+          "elevation": 4900,
+          "lat": -24.89,
+          "lon": -51.55,
+          "lon_ajustada": -51.699999999999996,
+          "vendas": 98
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -51.4,
+            -24.89
+          ],
+          "elevation": 6000,
+          "lat": -24.89,
+          "lon": -51.55,
+          "lon_ajustada": -51.4,
+          "vendas": 120
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -51.099999999999994,
+            -24.89
+          ],
+          "elevation": 6350,
+          "lat": -24.89,
+          "lon": -51.55,
+          "lon_ajustada": -51.099999999999994,
+          "vendas": 127
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -43.11,
+            -22.25
+          ],
+          "elevation": 14900,
+          "lat": -22.25,
+          "lon": -42.66,
+          "lon_ajustada": -43.11,
+          "vendas": 298
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -42.809999999999995,
+            -22.25
+          ],
+          "elevation": 15550,
+          "lat": -22.25,
+          "lon": -42.66,
+          "lon_ajustada": -42.809999999999995,
+          "vendas": 311
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -42.51,
+            -22.25
+          ],
+          "elevation": 14750,
+          "lat": -22.25,
+          "lon": -42.66,
+          "lon_ajustada": -42.51,
+          "vendas": 295
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -42.209999999999994,
+            -22.25
+          ],
+          "elevation": 15400,
+          "lat": -22.25,
+          "lon": -42.66,
+          "lon_ajustada": -42.209999999999994,
+          "vendas": 308
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -49.24,
+            -22.19
+          ],
+          "elevation": 49200,
+          "lat": -22.19,
+          "lon": -48.79,
+          "lon_ajustada": -49.24,
+          "vendas": 984
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -48.94,
+            -22.19
+          ],
+          "elevation": 49250,
+          "lat": -22.19,
+          "lon": -48.79,
+          "lon_ajustada": -48.94,
+          "vendas": 985
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -48.64,
+            -22.19
+          ],
+          "elevation": 49150,
+          "lat": -22.19,
+          "lon": -48.79,
+          "lon_ajustada": -48.64,
+          "vendas": 983
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -48.339999999999996,
+            -22.19
+          ],
+          "elevation": 49550,
+          "lat": -22.19,
+          "lon": -48.79,
+          "lon_ajustada": -48.339999999999996,
+          "vendas": 991
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -54.99,
+            -20.51
+          ],
+          "elevation": 900,
+          "lat": -20.51,
+          "lon": -54.54,
+          "lon_ajustada": -54.99,
+          "vendas": 18
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -54.69,
+            -20.51
+          ],
+          "elevation": 950,
+          "lat": -20.51,
+          "lon": -54.54,
+          "lon_ajustada": -54.69,
+          "vendas": 19
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -54.39,
+            -20.51
+          ],
+          "elevation": 900,
+          "lat": -20.51,
+          "lon": -54.54,
+          "lon_ajustada": -54.39,
+          "vendas": 18
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -54.089999999999996,
+            -20.51
+          ],
+          "elevation": 1350,
+          "lat": -20.51,
+          "lon": -54.54,
+          "lon_ajustada": -54.089999999999996,
+          "vendas": 27
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -40.790000000000006,
+            -19.19
+          ],
+          "elevation": 1900,
+          "lat": -19.19,
+          "lon": -40.34,
+          "lon_ajustada": -40.790000000000006,
+          "vendas": 38
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -40.49,
+            -19.19
+          ],
+          "elevation": 1700,
+          "lat": -19.19,
+          "lon": -40.34,
+          "lon_ajustada": -40.49,
+          "vendas": 34
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -40.190000000000005,
+            -19.19
+          ],
+          "elevation": 2850,
+          "lat": -19.19,
+          "lon": -40.34,
+          "lon_ajustada": -40.190000000000005,
+          "vendas": 57
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -39.89,
+            -19.19
+          ],
+          "elevation": 2100,
+          "lat": -19.19,
+          "lon": -40.34,
+          "lon_ajustada": -39.89,
+          "vendas": 42
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -44.830000000000005,
+            -18.1
+          ],
+          "elevation": 13250,
+          "lat": -18.1,
+          "lon": -44.38,
+          "lon_ajustada": -44.830000000000005,
+          "vendas": 265
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -44.53,
+            -18.1
+          ],
+          "elevation": 14150,
+          "lat": -18.1,
+          "lon": -44.38,
+          "lon_ajustada": -44.53,
+          "vendas": 283
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -44.230000000000004,
+            -18.1
+          ],
+          "elevation": 14250,
+          "lat": -18.1,
+          "lon": -44.38,
+          "lon_ajustada": -44.230000000000004,
+          "vendas": 285
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -43.93,
+            -18.1
+          ],
+          "elevation": 13450,
+          "lat": -18.1,
+          "lon": -44.38,
+          "lon_ajustada": -43.93,
+          "vendas": 269
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -50.31,
+            -15.98
+          ],
+          "elevation": 2550,
+          "lat": -15.98,
+          "lon": -49.86,
+          "lon_ajustada": -50.31,
+          "vendas": 51
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -50.01,
+            -15.98
+          ],
+          "elevation": 2950,
+          "lat": -15.98,
+          "lon": -49.86,
+          "lon_ajustada": -50.01,
+          "vendas": 59
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -49.71,
+            -15.98
+          ],
+          "elevation": 2200,
+          "lat": -15.98,
+          "lon": -49.86,
+          "lon_ajustada": -49.71,
+          "vendas": 44
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -49.41,
+            -15.98
+          ],
+          "elevation": 1600,
+          "lat": -15.98,
+          "lon": -49.86,
+          "lon_ajustada": -49.41,
+          "vendas": 32
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -48.31,
+            -15.83
+          ],
+          "elevation": 2650,
+          "lat": -15.83,
+          "lon": -47.86,
+          "lon_ajustada": -48.31,
+          "vendas": 53
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -48.01,
+            -15.83
+          ],
+          "elevation": 3500,
+          "lat": -15.83,
+          "lon": -47.86,
+          "lon_ajustada": -48.01,
+          "vendas": 70
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -47.71,
+            -15.83
+          ],
+          "elevation": 2800,
+          "lat": -15.83,
+          "lon": -47.86,
+          "lon_ajustada": -47.71,
+          "vendas": 56
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -47.41,
+            -15.83
+          ],
+          "elevation": 3150,
+          "lat": -15.83,
+          "lon": -47.86,
+          "lon_ajustada": -47.41,
+          "vendas": 63
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -42.160000000000004,
+            -13.29
+          ],
+          "elevation": 3750,
+          "lat": -13.29,
+          "lon": -41.71,
+          "lon_ajustada": -42.160000000000004,
+          "vendas": 75
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -41.86,
+            -13.29
+          ],
+          "elevation": 3900,
+          "lat": -13.29,
+          "lon": -41.71,
+          "lon_ajustada": -41.86,
+          "vendas": 78
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -41.56,
+            -13.29
+          ],
+          "elevation": 3850,
+          "lat": -13.29,
+          "lon": -41.71,
+          "lon_ajustada": -41.56,
+          "vendas": 77
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -41.26,
+            -13.29
+          ],
+          "elevation": 4000,
+          "lat": -13.29,
+          "lon": -41.71,
+          "lon_ajustada": -41.26,
+          "vendas": 80
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -55.870000000000005,
+            -12.64
+          ],
+          "elevation": 1100,
+          "lat": -12.64,
+          "lon": -55.42,
+          "lon_ajustada": -55.870000000000005,
+          "vendas": 22
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -55.57,
+            -12.64
+          ],
+          "elevation": 1000,
+          "lat": -12.64,
+          "lon": -55.42,
+          "lon_ajustada": -55.57,
+          "vendas": 20
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -55.27,
+            -12.64
+          ],
+          "elevation": 1100,
+          "lat": -12.64,
+          "lon": -55.42,
+          "lon_ajustada": -55.27,
+          "vendas": 22
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -54.97,
+            -12.64
+          ],
+          "elevation": 800,
+          "lat": -12.64,
+          "lon": -55.42,
+          "lon_ajustada": -54.97,
+          "vendas": 16
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -63.790000000000006,
+            -10.83
+          ],
+          "elevation": 250,
+          "lat": -10.83,
+          "lon": -63.34,
+          "lon_ajustada": -63.790000000000006,
+          "vendas": 5
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -63.49,
+            -10.83
+          ],
+          "elevation": 200,
+          "lat": -10.83,
+          "lon": -63.34,
+          "lon_ajustada": -63.49,
+          "vendas": 4
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -63.190000000000005,
+            -10.83
+          ],
+          "elevation": 300,
+          "lat": -10.83,
+          "lon": -63.34,
+          "lon_ajustada": -63.190000000000005,
+          "vendas": 6
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -62.89,
+            -10.83
+          ],
+          "elevation": 200,
+          "lat": -10.83,
+          "lon": -63.34,
+          "lon_ajustada": -62.89,
+          "vendas": 4
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -37.900000000000006,
+            -10.57
+          ],
+          "elevation": 700,
+          "lat": -10.57,
+          "lon": -37.45,
+          "lon_ajustada": -37.900000000000006,
+          "vendas": 14
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -37.6,
+            -10.57
+          ],
+          "elevation": 200,
+          "lat": -10.57,
+          "lon": -37.45,
+          "lon_ajustada": -37.6,
+          "vendas": 4
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -37.300000000000004,
+            -10.57
+          ],
+          "elevation": 350,
+          "lat": -10.57,
+          "lon": -37.45,
+          "lon_ajustada": -37.300000000000004,
+          "vendas": 7
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -37.0,
+            -10.57
+          ],
+          "elevation": 150,
+          "lat": -10.57,
+          "lon": -37.45,
+          "lon_ajustada": -37.0,
+          "vendas": 3
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -37.27,
+            -9.62
+          ],
+          "elevation": 750,
+          "lat": -9.62,
+          "lon": -36.82,
+          "lon_ajustada": -37.27,
+          "vendas": 15
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -36.97,
+            -9.62
+          ],
+          "elevation": 650,
+          "lat": -9.62,
+          "lon": -36.82,
+          "lon_ajustada": -36.97,
+          "vendas": 13
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -36.67,
+            -9.62
+          ],
+          "elevation": 350,
+          "lat": -9.62,
+          "lon": -36.82,
+          "lon_ajustada": -36.67,
+          "vendas": 7
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -36.37,
+            -9.62
+          ],
+          "elevation": 300,
+          "lat": -9.62,
+          "lon": -36.82,
+          "lon_ajustada": -36.37,
+          "vendas": 6
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -48.71,
+            -9.46
+          ],
+          "elevation": 550,
+          "lat": -9.46,
+          "lon": -48.26,
+          "lon_ajustada": -48.71,
+          "vendas": 11
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -48.41,
+            -9.46
+          ],
+          "elevation": 300,
+          "lat": -9.46,
+          "lon": -48.26,
+          "lon_ajustada": -48.41,
+          "vendas": 6
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -48.11,
+            -9.46
+          ],
+          "elevation": 250,
+          "lat": -9.46,
+          "lon": -48.26,
+          "lon_ajustada": -48.11,
+          "vendas": 5
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -47.809999999999995,
+            -9.46
+          ],
+          "elevation": 350,
+          "lat": -9.46,
+          "lon": -48.26,
+          "lon_ajustada": -47.809999999999995,
+          "vendas": 7
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -71.0,
+            -8.77
+          ],
+          "elevation": 50,
+          "lat": -8.77,
+          "lon": -70.55,
+          "lon_ajustada": -71.0,
+          "vendas": 1
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -70.7,
+            -8.77
+          ],
+          "elevation": 50,
+          "lat": -8.77,
+          "lon": -70.55,
+          "lon_ajustada": -70.7,
+          "vendas": 1
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -70.39999999999999,
+            -8.77
+          ],
+          "elevation": 50,
+          "lat": -8.77,
+          "lon": -70.55,
+          "lon_ajustada": -70.39999999999999,
+          "vendas": 1
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -38.31,
+            -8.38
+          ],
+          "elevation": 1550,
+          "lat": -8.38,
+          "lon": -37.86,
+          "lon_ajustada": -38.31,
+          "vendas": 31
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -38.01,
+            -8.38
+          ],
+          "elevation": 2500,
+          "lat": -8.38,
+          "lon": -37.86,
+          "lon_ajustada": -38.01,
+          "vendas": 50
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -37.71,
+            -8.38
+          ],
+          "elevation": 2500,
+          "lat": -8.38,
+          "lon": -37.86,
+          "lon_ajustada": -37.71,
+          "vendas": 50
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -37.41,
+            -8.38
+          ],
+          "elevation": 2500,
+          "lat": -8.38,
+          "lon": -37.86,
+          "lon_ajustada": -37.41,
+          "vendas": 50
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -37.17,
+            -7.28
+          ],
+          "elevation": 700,
+          "lat": -7.28,
+          "lon": -36.72,
+          "lon_ajustada": -37.17,
+          "vendas": 14
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -36.87,
+            -7.28
+          ],
+          "elevation": 600,
+          "lat": -7.28,
+          "lon": -36.72,
+          "lon_ajustada": -36.87,
+          "vendas": 12
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -36.57,
+            -7.28
+          ],
+          "elevation": 300,
+          "lat": -7.28,
+          "lon": -36.72,
+          "lon_ajustada": -36.57,
+          "vendas": 6
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -36.269999999999996,
+            -7.28
+          ],
+          "elevation": 700,
+          "lat": -7.28,
+          "lon": -36.72,
+          "lon_ajustada": -36.269999999999996,
+          "vendas": 14
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -42.730000000000004,
+            -6.6
+          ],
+          "elevation": 300,
+          "lat": -6.6,
+          "lon": -42.28,
+          "lon_ajustada": -42.730000000000004,
+          "vendas": 6
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -42.43,
+            -6.6
+          ],
+          "elevation": 300,
+          "lat": -6.6,
+          "lon": -42.28,
+          "lon_ajustada": -42.43,
+          "vendas": 6
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -42.13,
+            -6.6
+          ],
+          "elevation": 500,
+          "lat": -6.6,
+          "lon": -42.28,
+          "lon_ajustada": -42.13,
+          "vendas": 10
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -41.83,
+            -6.6
+          ],
+          "elevation": 900,
+          "lat": -6.6,
+          "lon": -42.28,
+          "lon_ajustada": -41.83,
+          "vendas": 18
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -37.040000000000006,
+            -5.81
+          ],
+          "elevation": 450,
+          "lat": -5.81,
+          "lon": -36.59,
+          "lon_ajustada": -37.040000000000006,
+          "vendas": 9
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -36.74,
+            -5.81
+          ],
+          "elevation": 650,
+          "lat": -5.81,
+          "lon": -36.59,
+          "lon_ajustada": -36.74,
+          "vendas": 13
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -36.440000000000005,
+            -5.81
+          ],
+          "elevation": 500,
+          "lat": -5.81,
+          "lon": -36.59,
+          "lon_ajustada": -36.440000000000005,
+          "vendas": 10
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -36.14,
+            -5.81
+          ],
+          "elevation": 800,
+          "lat": -5.81,
+          "lon": -36.59,
+          "lon_ajustada": -36.14,
+          "vendas": 16
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -45.89,
+            -5.42
+          ],
+          "elevation": 500,
+          "lat": -5.42,
+          "lon": -45.44,
+          "lon_ajustada": -45.89,
+          "vendas": 10
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -45.589999999999996,
+            -5.42
+          ],
+          "elevation": 700,
+          "lat": -5.42,
+          "lon": -45.44,
+          "lon_ajustada": -45.589999999999996,
+          "vendas": 14
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -45.29,
+            -5.42
+          ],
+          "elevation": 950,
+          "lat": -5.42,
+          "lon": -45.44,
+          "lon_ajustada": -45.29,
+          "vendas": 19
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -44.989999999999995,
+            -5.42
+          ],
+          "elevation": 950,
+          "lat": -5.42,
+          "lon": -45.44,
+          "lon_ajustada": -44.989999999999995,
+          "vendas": 19
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -39.980000000000004,
+            -5.2
+          ],
+          "elevation": 1600,
+          "lat": -5.2,
+          "lon": -39.53,
+          "lon_ajustada": -39.980000000000004,
+          "vendas": 32
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -39.68,
+            -5.2
+          ],
+          "elevation": 2000,
+          "lat": -5.2,
+          "lon": -39.53,
+          "lon_ajustada": -39.68,
+          "vendas": 40
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -39.38,
+            -5.2
+          ],
+          "elevation": 2200,
+          "lat": -5.2,
+          "lon": -39.53,
+          "lon_ajustada": -39.38,
+          "vendas": 44
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -39.08,
+            -5.2
+          ],
+          "elevation": 1750,
+          "lat": -5.2,
+          "lon": -39.53,
+          "lon_ajustada": -39.08,
+          "vendas": 35
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -52.93,
+            -3.79
+          ],
+          "elevation": 1100,
+          "lat": -3.79,
+          "lon": -52.48,
+          "lon_ajustada": -52.93,
+          "vendas": 22
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -52.629999999999995,
+            -3.79
+          ],
+          "elevation": 800,
+          "lat": -3.79,
+          "lon": -52.48,
+          "lon_ajustada": -52.629999999999995,
+          "vendas": 16
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -52.33,
+            -3.79
+          ],
+          "elevation": 1300,
+          "lat": -3.79,
+          "lon": -52.48,
+          "lon_ajustada": -52.33,
+          "vendas": 26
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -52.029999999999994,
+            -3.79
+          ],
+          "elevation": 850,
+          "lat": -3.79,
+          "lon": -52.48,
+          "lon_ajustada": -52.029999999999994,
+          "vendas": 17
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -65.55,
+            -3.47
+          ],
+          "elevation": 150,
+          "lat": -3.47,
+          "lon": -65.1,
+          "lon_ajustada": -65.55,
+          "vendas": 3
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -65.25,
+            -3.47
+          ],
+          "elevation": 200,
+          "lat": -3.47,
+          "lon": -65.1,
+          "lon_ajustada": -65.25,
+          "vendas": 4
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -64.94999999999999,
+            -3.47
+          ],
+          "elevation": 150,
+          "lat": -3.47,
+          "lon": -65.1,
+          "lon_ajustada": -64.94999999999999,
+          "vendas": 3
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -64.64999999999999,
+            -3.47
+          ],
+          "elevation": 200,
+          "lat": -3.47,
+          "lon": -65.1,
+          "lon_ajustada": -64.64999999999999,
+          "vendas": 4
+        },
+        {
+          "Loja": "Loja 1",
+          "color": [
+            76,
+            175,
+            80
+          ],
+          "coordinates": [
+            -52.220000000000006,
+            1.41
+          ],
+          "elevation": 200,
+          "lat": 1.41,
+          "lon": -51.77,
+          "lon_ajustada": -52.220000000000006,
+          "vendas": 4
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -51.620000000000005,
+            1.41
+          ],
+          "elevation": 100,
+          "lat": 1.41,
+          "lon": -51.77,
+          "lon_ajustada": -51.620000000000005,
+          "vendas": 2
+        },
+        {
+          "Loja": "Loja 4",
+          "color": [
+            156,
+            39,
+            176
+          ],
+          "coordinates": [
+            -51.32,
+            1.41
+          ],
+          "elevation": 150,
+          "lat": 1.41,
+          "lon": -51.77,
+          "lon_ajustada": -51.32,
+          "vendas": 3
+        },
+        {
+          "Loja": "Loja 2",
+          "color": [
+            33,
+            150,
+            243
+          ],
+          "coordinates": [
+            -61.48,
+            1.99
+          ],
+          "elevation": 50,
+          "lat": 1.99,
+          "lon": -61.33,
+          "lon_ajustada": -61.48,
+          "vendas": 1
+        },
+        {
+          "Loja": "Loja 3",
+          "color": [
+            255,
+            193,
+            7
+          ],
+          "coordinates": [
+            -61.18,
+            1.99
+          ],
+          "elevation": 50,
+          "lat": 1.99,
+          "lon": -61.33,
+          "lon_ajustada": -61.18,
+          "vendas": 1
+        }
+      ],
+      "elevationScale": 1,
+      "getElevation": "@@=elevation",
+      "getFillColor": "@@=color",
+      "getPosition": "@@=coordinates",
+      "id": "29db1584-2595-4452-82ef-4586141818dd",
+      "pickable": true,
+      "radius": 15000
+    }
+  ],
+  "mapProvider": "carto",
+  "mapStyle": "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+  "views": [
+    {
+      "@@type": "MapView",
+      "controller": true
+    }
+  ]
+};
+    const tooltip = {'text': 'Loja: {Loja}\nVendas: {vendas}'};
+    const customLibraries = null;
+    const configuration = null;
+
+    const deckInstance = createDeck({
+                  container,
+      jsonInput,
+      tooltip,
+      customLibraries,
+      configuration
+    });
+
+  </script>
+</html>

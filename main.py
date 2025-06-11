@@ -1,19 +1,49 @@
-# Importa as bibliotecas necessárias
+# ==============================================
+# IMPORTAÇÃO DAS BIBLIOTECAS NECESSÁRIAS
+# ==============================================
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
+import seaborn as sns
+import pydeck as pdk
+import webbrowser
 
-# Define as URLs dos arquivos CSV de cada loja
-url = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_1.csv"
-url2 = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_2.csv"
-url3 = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_3.csv"
-url4 = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_4.csv"
+# ==============================================
+# CARREGAMENTO DOS DADOS DAS LOJAS
+# ==============================================
 
-# Carrega os arquivos CSV em uma lista de DataFrames
-lojas = []
-lojas.append(pd.read_csv(url))
-lojas.append(pd.read_csv(url2))
-lojas.append(pd.read_csv(url3))
-lojas.append(pd.read_csv(url4))
+# URLs dos arquivos CSV das lojas hospedados no GitHub
+urls = [
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_1.csv",
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_2.csv",
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_3.csv",
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_4.csv"
+]
+
+# Lê todos os arquivos CSV e armazena em uma lista
+lojas = [pd.read_csv(url) for url in urls]
+
+# Define uma cor única para cada loja
+cores = ['#4CAF50', '#2196F3', '#FFC107', '#9C27B0']  # Verde, Azul, Amarelo, Roxo
+
+# Função que soma os valores de uma coluna numérica
+def soma_por_coluna(arquivo, coluna):
+    # Calcula a soma total da coluna especificada
+    soma = arquivo[coluna].sum()
+    return soma
+
+# Função que calcula a média dos valores de uma coluna numérica
+def media_por_coluna(arquivo, coluna):
+    # Calcula a média da coluna e arredonda para 2 casas decimais
+    media_valor = round(arquivo[coluna].mean(), 2)
+    return media_valor
+
+# Função que soma os valores da coluna "Preço" agrupando por uma categoria
+def soma_por_categoria(arquivo, coluna):
+    # Agrupa os dados pela categoria e soma os preços de cada grupo
+    soma = arquivo.groupby(coluna)["Preço"].sum().sort_values(ascending=False)
+    return soma
 
 # Função que soma os valores de uma coluna numérica
 def soma_por_coluna(arquivo, coluna):
@@ -39,52 +69,50 @@ def soma_produtos_tipo(arquivo, coluna):
     qt_produtos_tipo = arquivo.groupby(coluna).size().sort_values(ascending=False)
     return qt_produtos_tipo
 
+# Função para converter uma cor hexadecimal (#RRGGBB) para formato RGB [R, G, B]
+def hex_to_rgb(hex_color):
+    hex_color = hex_color.lstrip('#')
+    return [int(hex_color[i:i+2], 16) for i in (0, 2, 4)]
+
 
 # ==============================================
 # ANÁLISE DE FATURAMENTO DAS LOJAS
 # ==============================================
 
-# Lista que armazenará o faturamento individual de cada loja
-faturamento_loja = []
+# Calcula o faturamento por loja
+faturamento_loja = [soma_por_coluna(loja, 'Preço') for loja in lojas]
 
-# Loop para calcular o faturamento (soma da coluna 'Preço') de cada loja
-for i in range(len(lojas)):
-    faturamento_loja.append(soma_por_coluna(lojas[i], 'Preço'))
-
-# Exibe o faturamento de cada loja individualmente
+# Exibe o faturamento por loja
 for i, valor in enumerate(faturamento_loja, start=1):
     print(f'Faturamento da loja {i}: R$ {valor:.2f}')
 
-# Calcula o faturamento total
+# Faturamento total
 faturamento_total = sum(faturamento_loja)
 print(f'\nFaturamento total das lojas: R$ {faturamento_total:.2f}')
 
-# Geração do gráfico de faturamento por loja
-
-# Lista com nomes das lojas para o eixo X
+# Nomes das lojas
 nomes_lojas = [f'Loja {i}' for i in range(1, len(lojas) + 1)]
 
-# Cria a figura e os eixos do gráfico
+# === Gráfico de faturamento por loja ===
+
 fig, ax = plt.subplots(figsize=(8, 6))
 
-# Cria as barras verticais
-barras = ax.bar(nomes_lojas, faturamento_loja, color='skyblue')
+# Cria o gráfico de barras com cores diferentes
+barras = ax.bar(nomes_lojas, faturamento_loja, color=cores)
 
-# Adiciona os valores de faturamento sobre cada barra
+# Adiciona os valores sobre cada barra
 for bar, valor in zip(barras, faturamento_loja):
     altura = bar.get_height()
-    ax.text(bar.get_x() + bar.get_width() / 2, altura + 500,  # posição do texto
+    ax.text(bar.get_x() + bar.get_width() / 2, altura + 500,
             f'R$ {valor:,.2f}', ha='center', va='bottom', fontsize=9)
 
-# Define título e rótulos
+# Título e rótulos
 ax.set_title(f'Faturamento por Loja\nFaturamento Total: R$ {faturamento_total:,.2f}', fontsize=14)
 ax.set_ylabel('Faturamento (R$)', fontsize=11)
 ax.set_xlabel('Lojas', fontsize=11)
 
-# Melhora o layout
+# Layout final
 plt.tight_layout()
-
-# Exibe o gráfico
 plt.show()
 
 
@@ -92,33 +120,24 @@ plt.show()
 # ANÁLISE DE FATURAMENTO POR CATEGORIA - POR LOJA
 # ==============================================
 
-# Lista que armazenará os DataFrames com faturamento por categoria de cada loja
-vendas_categoria = []
+# Lista com o faturamento por categoria para cada loja
+vendas_categoria = [soma_por_categoria(loja, 'Categoria do Produto') for loja in lojas]
 
-# Loop para calcular o faturamento por categoria de produto em cada loja
-for i in range(len(lojas)):
-    # Utiliza a função 'soma_por_categoria' para somar os preços por categoria
-    vendas_categoria.append(soma_por_categoria(lojas[i], 'Categoria do Produto'))
-
-# Loop para exibir os resultados de faturamento por categoria para cada loja
+# Exibe o faturamento por categoria de cada loja
 for i, categoria in enumerate(vendas_categoria, start=1):
     print(f'\nFaturamento por categoria - Loja {i}:\n')
-
-    # Itera sobre os pares (nome da categoria, valor total)
     for nome_categoria, total in categoria.items():
         print(f' - {nome_categoria}: R$ {total:.2f}')
-
-    # Linha em branco entre os resultados de cada loja
     print()
 
-# Concatena todos os DataFrames por categoria, renomeando colunas
+# Concatena os dados por categoria
 df_categorias = pd.concat(vendas_categoria, axis=1)
 df_categorias.columns = [f'Loja {i+1}' for i in range(len(lojas))]
 df_categorias = df_categorias.fillna(0)
 
-# Cria o gráfico comparativo
+# Cria o gráfico de barras
 fig, ax = plt.subplots(figsize=(10, 6))
-df_categorias.plot(kind='bar', ax=ax)
+df_categorias.plot(kind='bar', ax=ax, color=cores)
 
 # Título e rótulos
 ax.set_title('Faturamento por Categoria - Comparativo entre Lojas', fontsize=14)
@@ -160,7 +179,7 @@ media_max = max(media_avaliacoes)
 media_min = min(media_avaliacoes)
 
 # Define cores com base na média
-cores = [
+cores_media = [
     'green' if media == media_max else
     'red' if media == media_min else
     'gray'
@@ -171,7 +190,7 @@ cores = [
 fig, ax = plt.subplots(figsize=(9, 5))
 
 # Gráfico de barras
-barras = ax.bar(nomes_lojas, media_avaliacoes, color=cores)
+barras = ax.bar(nomes_lojas, media_avaliacoes, color=cores_media)
 
 # Adiciona os valores nas barras
 for bar, media in zip(barras, media_avaliacoes):
@@ -215,7 +234,7 @@ plt.show()
 # Lista que armazenará as quantidades de produtos vendidos por loja
 produtos_vendidos = []
 
-# 6. Preenche a lista com as contagens por tipo de produto
+# Preenche a lista com as contagens por tipo de produto
 for i in range(len(lojas)):
     produtos_vendidos.append(soma_produtos_tipo(lojas[i], 'Produto'))
 
@@ -238,10 +257,10 @@ for i, df_produtos in enumerate(produtos_vendidos, start=1):
 
     print()  # Linha em branco entre as lojas
 
-# 7. Lista para armazenar os objetos de figura gerados pelos gráficos
+# Lista para armazenar os objetos de figura gerados pelos gráficos
 figs = []
 
-# 8. Loop para gerar os gráficos de cada loja
+# Loop para gerar os gráficos de cada loja
 for i, df_produtos in enumerate(produtos_vendidos, start=1):
     # Ordena os produtos do mais vendido ao menos vendido
     df_ordenado = df_produtos.sort_values(ascending=False)
@@ -252,7 +271,7 @@ for i, df_produtos in enumerate(produtos_vendidos, start=1):
 
     # Define as cores para as barras:
     # Verde para o mais vendido, vermelho para o menos vendido, cinza para os demais
-    cores = [
+    cores_min_max = [
         'green' if qtd == qtd_max else
         'red' if qtd == qtd_min else
         'gray'
@@ -263,7 +282,7 @@ for i, df_produtos in enumerate(produtos_vendidos, start=1):
     fig, ax = plt.subplots(figsize=(10, 0.7 * len(df_ordenado) + 2), constrained_layout=True)
 
     # Cria gráfico de barras horizontais
-    bars = ax.barh(df_ordenado.index, df_ordenado.values, color=cores)
+    bars = ax.barh(df_ordenado.index, df_ordenado.values, color=cores_min_max)
 
     # Define o título e os rótulos dos eixos
     ax.set_title(f'Quantidade Vendida por Produto - Loja {i}', fontsize=12)
@@ -290,57 +309,253 @@ for i, df_produtos in enumerate(produtos_vendidos, start=1):
     # Armazena a figura na lista
     figs.append(fig)
 
-# 9. Exibe todos os gráficos após o processamento
+# Exibe todos os gráficos após o processamento
 plt.show()
 
 
 # ==============================================
-# ANÁLISE DO FRETE MÉDIO POR LOJA
+# ANÁLISE DO FRETE MÉDIO E PRODUTOS POR FAIXA DE FRETE
 # ==============================================
 
-# 1. Lista para armazenar o valor médio do frete de cada loja
+# Parâmetros de faixa de frete
+bins = [0, 10, 20, 30, 40, 50, float('inf')]
+labels = ['0-10', '10-20', '20-30', '30-40', '40-50', '50+']
+
 frete_medio = []
+dados_comparativos = {}
 
-# 2. Loop para calcular a média da coluna "Frete" em cada loja
-for i in range(len(lojas)):
-    # Usa a função definida anteriormente para calcular a média do frete
-    frete_medio.append(media_por_coluna(lojas[i], 'Frete'))
+# Processa todas as lojas
+for i, loja in enumerate(lojas, start=1):
+    # Filtra fretes maiores que zero
+    dados_filtrados = loja[loja['Frete'] > 0].copy()
 
-# 3. Exibe o valor médio do frete para cada loja
-for i, media in enumerate(frete_medio, start=1):
-    print(f'Custo do frete médio da loja {i}: R${media:.2f}')
+    # Calcula frete médio
+    media_frete = media_por_coluna(dados_filtrados, 'Frete')
+    frete_medio.append(media_frete)
 
-# Média geral entre todas as lojas
-media_geral = round(sum(frete_medio) / len(frete_medio), 2)
+    # Cria faixa de frete
+    dados_filtrados['Faixa de Frete'] = pd.cut(dados_filtrados['Frete'], bins=bins, labels=labels, right=False)
 
-# Nomes das lojas
-nomes_lojas = [f'Loja {i}' for i in range(1, len(frete_medio) + 1)]
+    # Conta produtos por faixa
+    produtos_por_faixa = dados_filtrados['Faixa de Frete'].value_counts().reindex(labels)
 
-# Cores personalizadas para cada barra
-cores = ['#3498db', '#e67e22', '#9b59b6', '#2ecc71']
+    # Armazena para gráfico comparativo
+    dados_comparativos[f'Loja {i}'] = produtos_por_faixa
 
-# Criação do gráfico
-fig, ax = plt.subplots(figsize=(8, 6))
+    # Mostra resumo no terminal
+    print(f"\n📊 Loja {i} - Frete Médio: R${media_frete:.2f}")
+    print(produtos_por_faixa)
+    
+# -------- Cálculos derivados e gráficos --------
+# Cria DataFrame para comparação
+df_comparativo = pd.DataFrame(dados_comparativos)
 
-barras = ax.bar(nomes_lojas, frete_medio, color=cores)
+# Variação percentual em relação à média geral
+media_geral = sum(frete_medio) / len(frete_medio)
+variacoes = [(valor - media_geral) / media_geral * 100 for valor in frete_medio]
 
-# Adiciona rótulos com os valores sobre cada barra
-for bar, valor in zip(barras, frete_medio):
-    altura = bar.get_height()
-    ax.text(bar.get_x() + bar.get_width()/2, altura + 0.05, f'R$ {valor:.2f}',
-            ha='center', va='bottom', fontsize=9)
+# Gráfico combinado
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
 
-# Linha da média geral
-ax.axhline(media_geral, color='gray', linestyle='--', linewidth=1)
-ax.text(len(lojas) - 0.35, media_geral, f'Média geral (R$ {media_geral:.2f})', va='center', ha='left', fontsize=9, color='gray', bbox=dict(facecolor='white', edgecolor='none'))
-#ax.text(len(lojas) - 0.1 + 0.7, media_geral, f'Média Geral ({media_geral:.2f})', color='blue', fontsize=9, va='center')
-# Títulos e rótulos
-ax.set_title('Frete Médio por Loja', fontsize=14)
-ax.set_ylabel('Valor Médio do Frete (R$)', fontsize=11)
-ax.set_xlabel('Lojas', fontsize=11)
+# -------- Gráfico 1: Produtos por faixa --------
+largura_barra = 0.15
+x = np.arange(len(labels))
+offsets = np.linspace(-1.5 * largura_barra, 1.5 * largura_barra, len(lojas))
 
-# Ajusta o layout para melhor visualização
+for i, (coluna, cor) in enumerate(zip(df_comparativo.columns, cores)):
+    barras = ax1.bar(x + offsets[i], df_comparativo[coluna], width=largura_barra,
+                     label=coluna, color=cor, edgecolor='black')
+
+    # Adiciona rótulos
+    for barra in barras:
+        altura = barra.get_height()
+        ax1.annotate(f'{int(altura)}',
+                     xy=(barra.get_x() + barra.get_width() / 2, altura),
+                     xytext=(0, 3),
+                     textcoords='offset points',
+                     ha='center', va='bottom', fontsize=9)
+
+ax1.set_title('Produtos Vendidos por Faixa de Frete (por Loja)')
+ax1.set_ylabel('Quantidade de Produtos')
+ax1.set_xticks(x)
+ax1.set_xticklabels(labels)
+ax1.grid(axis='y', linestyle='--', alpha=0.7)
+ax1.legend()
+
+# -------- Gráfico 2: Frete médio e variação --------
+x_lojas = np.arange(len(lojas))
+ax2.plot(x_lojas, frete_medio, color='red', marker='o', linestyle='-', linewidth=2, label='Frete Médio')
+
+for i, valor in enumerate(frete_medio):
+    variacao = variacoes[i]
+    texto = f'R${valor:.2f}\n({variacao:+.1f}%)' if abs(variacao) >= 0.05 else f'R${valor:.2f}\n(= média)'
+    
+    ax2.annotate(texto,
+                 xy=(x_lojas[i], valor),
+                 xytext=(0, 10),
+                 textcoords='offset points',
+                 ha='center', va='bottom',
+                 fontsize=10, color='red')
+
+ax2.set_title('Frete Médio por Loja (Variação em Relação à Média Geral)')
+ax2.set_xlabel('Lojas')
+ax2.set_ylabel('Frete Médio (R$)')
+ax2.set_xticks(x_lojas)
+ax2.set_xticklabels([f'Loja {i+1}' for i in range(len(lojas))])
+ax2.set_ylim(30, 40)
+ax2.grid(axis='y', linestyle='--', alpha=0.7)
+ax2.axhline(media_geral, color='gray', linestyle='--', linewidth=1, label='Média Geral')
+ax2.legend()
+
 plt.tight_layout()
-
-# Exibe o gráfico
 plt.show()
+
+
+# ==============================================
+# PRÉ-PROCESSAMENTO E AGRUPAMENTO DE DADOS
+# ==============================================
+
+# Junta todos os DataFrames em um único DataFrame com uma coluna "Loja"
+df_lojas = []
+for i, loja in enumerate(lojas, start=1):
+    df = loja.copy()
+    df["Loja"] = f"Loja {i}"
+    df_lojas.append(df)
+
+# Concatena os dados de todas as lojas
+df_total = pd.concat(df_lojas, ignore_index=True)
+
+# Agrupa os dados por localização e loja, contando número de vendas por ponto
+vendas = df_total.groupby(['lat', 'lon', 'Loja']).size().reset_index(name='vendas')
+
+# ==============================================
+# CONFIGURAÇÃO DE CORES E DESLOCAMENTO
+# ==============================================
+
+# Cores hexadecimais associadas a cada loja
+lojas_unicas = sorted(vendas['Loja'].unique())
+
+# Converte cores hex para RGB e cria um dicionário {loja: cor RGB}
+cores_pdk = {loja: hex_to_rgb(cores[i]) for i, loja in enumerate(lojas_unicas)}
+vendas['color'] = vendas['Loja'].map(cores_pdk)
+
+# Configurações visuais para o gráfico 2D
+largura_barra = 0.2      # Largura de cada barra
+altura_max = 2.0         # Altura máxima que uma barra pode atingir no gráfico 2D
+
+# Deslocamento lateral automático para evitar sobreposição de barras
+deslocamento = 0.35
+max_vendas = vendas['vendas'].max()
+deslocamentos = {loja: i * deslocamento for i, loja in enumerate(lojas_unicas)}
+
+# ==============================================
+# GRÁFICO 2D: DISTRIBUIÇÃO GEOGRÁFICA E MAPA DE CALOR
+# ==============================================
+
+# Cria duas visualizações lado a lado
+fig, axes = plt.subplots(1, 2, figsize=(18, 8))
+ax1, ax2 = axes
+
+# === GRÁFICO 1: Barras Geográficas (2D) ===
+legendas_adicionadas = set()
+
+for i, loja in enumerate(lojas_unicas):
+    dados_loja = vendas[vendas['Loja'] == loja]
+    for _, row in dados_loja.iterrows():
+        lat = row['lat']
+        lon = row['lon'] + deslocamentos[loja]  # aplica deslocamento horizontal
+        altura = (row['vendas'] / max_vendas) * altura_max
+        base_lat = lat - altura  # base da barra
+
+        # Adiciona o retângulo (barra) ao gráfico
+        rect = Rectangle(
+            (lon - largura_barra / 2, base_lat),
+            largura_barra, altura,
+            color=cores[i], alpha=0.7
+        )
+        ax1.add_patch(rect)
+
+        # Garante que a legenda para cada loja seja adicionada apenas uma vez
+        if loja not in legendas_adicionadas:
+            rect.set_label(loja)
+            legendas_adicionadas.add(loja)
+
+# Ajusta limites e estilo do gráfico 1
+ax1.set_xlim(df_total['lon'].min() - 1, df_total['lon'].max() + 1)
+ax1.set_ylim(df_total['lat'].min() - 2, df_total['lat'].max() + 2)
+ax1.set_xlabel("Longitude")
+ax1.set_ylabel("Latitude")
+ax1.set_title("Distribuição Geográfica das Vendas por Loja (com Barras)")
+ax1.legend(title="Loja")
+ax1.grid(True)
+
+# === GRÁFICO 2: Mapa de Calor ===
+sns.kdeplot(
+    data=df_total, x='lon', y='lat',
+    fill=True, cmap='Reds', thresh=0.05, ax=ax2
+)
+ax2.set_title('Mapa de Calor da Concentração de Vendas (Todas as Lojas)')
+ax2.set_xlabel('Longitude')
+ax2.set_ylabel('Latitude')
+ax2.grid(True)
+
+# Exibe os gráficos 2D
+plt.tight_layout()
+plt.show()
+
+# ==============================================
+# MAPA 3D INTERATIVO COM PYDECK
+# ==============================================
+
+# Define deslocamentos fixos para longitude no mapa 3D
+offsets = {
+    'Loja 1': -0.45,
+    'Loja 2': -0.15,
+    'Loja 3': 0.15,
+    'Loja 4': 0.45
+}
+
+# Cria coluna de longitude ajustada (para evitar sobreposição)
+vendas['lon_ajustada'] = vendas.apply(lambda row: row['lon'] + offsets[row['Loja']], axis=1)
+
+# Combina latitude e longitude ajustada em uma única lista para cada linha
+vendas['coordinates'] = vendas[['lon_ajustada', 'lat']].values.tolist()
+
+# Define a altura das colunas com base na quantidade de vendas
+vendas['elevation'] = vendas['vendas'] * 50
+
+# Cria a camada de colunas 3D
+column_layer = pdk.Layer(
+    "ColumnLayer",                    # Tipo de camada
+    data=vendas,                      # DataFrame com os dados
+    get_position="coordinates",       # Posição das colunas
+    get_elevation="elevation",        # Altura proporcional às vendas
+    elevation_scale=1,                # Escala da elevação
+    radius=15000,                     # Tamanho da base da coluna
+    get_fill_color="color",           # Cor da coluna por loja
+    pickable=True,                    # Permite interação (tooltip)
+    auto_highlight=True               # Destaque automático ao passar o mouse
+)
+
+# Define o estado inicial da visualização do mapa
+view_state = pdk.ViewState(
+    longitude=df_total['lon'].mean(),  # Centraliza longitude
+    latitude=df_total['lat'].mean(),   # Centraliza latitude
+    zoom=4,                            # Nível de zoom
+    pitch=45                           # Inclinação da câmera para efeito 3D
+)
+
+# Cria o mapa 3D completo
+deck = pdk.Deck(
+    layers=[column_layer],             # Adiciona a camada de colunas
+    initial_view_state=view_state,     # Configura o ponto de vista
+    tooltip={"text": "Loja: {Loja}\nVendas: {vendas}"}  # Tooltip interativo
+)
+
+# Salva o mapa em HTML e abre automaticamente no navegador
+html_path = "mapa_vendas_3d_barras.html"
+deck.to_html(html_path)
+webbrowser.open(html_path)
+
+# (Opcional) Exibe no notebook caso esteja rodando no Google Colab
+deck.show()

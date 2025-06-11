@@ -1,36 +1,33 @@
-# ==============================================
-# ALURA STORE - ANÁLISE DE PRODUTOS VENDIDOS POR LOJA
-# ==============================================
-
-# 1. Importa as bibliotecas necessárias
+# Importa as bibliotecas necessárias
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# 2. Define as URLs dos arquivos CSV de cada loja
-url = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_1.csv"
-url2 = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_2.csv"
-url3 = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_3.csv"
-url4 = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_4.csv"
+# Lista com todas as URLs
+urls = [
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_1.csv",
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_2.csv",
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_3.csv",
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_4.csv"
+]
 
-# 3. Carrega os arquivos CSV em uma lista de DataFrames
-lojas = []
-lojas.append(pd.read_csv(url))
-lojas.append(pd.read_csv(url2))
-lojas.append(pd.read_csv(url3))
-lojas.append(pd.read_csv(url4))
+# Carrega todos os DataFrames usando list comprehension
+lojas = [pd.read_csv(url) for url in urls]
 
-# 4. Função que soma a quantidade de produtos por tipo
+# Função que soma a quantidade de produtos por tipo
 def soma_produtos_tipo(arquivo, coluna):
     # Agrupa os dados pela coluna e conta a quantidade de ocorrências
     qt_produtos_tipo = arquivo.groupby(coluna).size().sort_values(ascending=False)
     return qt_produtos_tipo
 
-# 5. Análise dos produtos mais e menos vendidos
+
+# ==============================================
+# ANÁLISE DE PRODUTOS VENDIDOS POR LOJA
+# ==============================================
 
 # Lista que armazenará as quantidades de produtos vendidos por loja
 produtos_vendidos = []
 
-# 6. Preenche a lista com as contagens por tipo de produto
+# Preenche a lista com as contagens por tipo de produto
 for i in range(len(lojas)):
     produtos_vendidos.append(soma_produtos_tipo(lojas[i], 'Produto'))
 
@@ -53,10 +50,10 @@ for i, df_produtos in enumerate(produtos_vendidos, start=1):
 
     print()  # Linha em branco entre as lojas
 
-# 7. Lista para armazenar os objetos de figura gerados pelos gráficos
+# Lista para armazenar os objetos de figura gerados pelos gráficos
 figs = []
 
-# 8. Loop para gerar os gráficos de cada loja
+# Loop para gerar os gráficos de cada loja
 for i, df_produtos in enumerate(produtos_vendidos, start=1):
     # Ordena os produtos do mais vendido ao menos vendido
     df_ordenado = df_produtos.sort_values(ascending=False)
@@ -105,5 +102,5 @@ for i, df_produtos in enumerate(produtos_vendidos, start=1):
     # Armazena a figura na lista
     figs.append(fig)
 
-# 9. Exibe todos os gráficos após o processamento
+# Exibe todos os gráficos após o processamento
 plt.show()

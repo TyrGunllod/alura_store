@@ -1,19 +1,18 @@
 # 1. Importa as bibliotecas necessárias
+# Importa as bibliotecas necessárias
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# 2. Define as URLs dos arquivos CSV de cada loja
-url = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_1.csv"
-url2 = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_2.csv"
-url3 = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_3.csv"
-url4 = "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_4.csv"
+# Lista com todas as URLs
+urls = [
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_1.csv",
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_2.csv",
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_3.csv",
+    "https://raw.githubusercontent.com/TyrGunllod/alura_store/refs/heads/main/dados_lojas/loja_4.csv"
+]
 
-# 3. Carrega os arquivos CSV em uma lista de DataFrames
-lojas = []
-lojas.append(pd.read_csv(url))
-lojas.append(pd.read_csv(url2))
-lojas.append(pd.read_csv(url3))
-lojas.append(pd.read_csv(url4))
+# Carrega todos os DataFrames usando list comprehension
+lojas = [pd.read_csv(url) for url in urls]
 
 def media_por_coluna(arquivo, coluna):
     media_valor = round(arquivo[coluna].mean(), 2)
