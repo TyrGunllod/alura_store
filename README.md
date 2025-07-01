@@ -23,8 +23,8 @@ A seguir, o gráfico mostra o faturamento total de cada loja:
 
 - **Loja 1**: Maior faturamento geral, indicando forte desempenho.
 - **Loja 2**: Faturamento intermediário e estável.
-- **Loja 3**: Menor faturamento total.
-- **Loja 4**: Levemente abaixo da Loja 2, desempenho mediano.
+- **Loja 3**: Levemente abaixo da Loja 2, desempenho mediano.
+- **Loja 4**: Menor faturamento total.
 
 ---
 
@@ -43,24 +43,26 @@ A seguir, o gráfico mostra o faturamento total de cada loja:
 
 ![Avaliação Média](images/med_aval.png)
 
-- **Loja 2**: Melhor avaliação média dos clientes.
-- **Loja 1**: Avaliação positiva, mas não a mais alta.
+- **Loja 1**: Pior avaliação, indicando insatisfação do cliente.
+- **Loja 2**: Avaliação positiva, mas não a mais alta.
+- **Loja 3**: Melhor avaliação média dos clientes.
 - **Loja 4**: Avaliação mediana, com margem para melhorias.
-- **Loja 3**: Pior avaliação, indicando insatisfação do cliente.
+
 
 ---
 
 ### 🛒 Produtos Mais e Menos Vendidos
 
-![Produtos mai e menos vendidos -  Loja 1](images/qtv_l1.png) 
-![Produtos mai e menos vendidos -  Loja 2](images/qtv_l2.png)
-![Produtos mai e menos vendidos -  Loja 3](images/qtv_l3.png)
-![Produtos mai e menos vendidos -  Loja 4](images/qtv_l4.png)
+![Produtos mais e menos vendidos -  Loja 1](images/qtv_l1.png) 
+![Produtos mais e menos vendidos -  Loja 2](images/qtv_l2.png)
+![Produtos mais e menos vendidos -  Loja 3](images/qtv_l3.png)
+![Produtos mais e menos vendidos -  Loja 4](images/qtv_l4.png)
 
 - **Loja 1**: Mais produtos com alta saída.
 - **Loja 2**: Boa performance com poucos produtos líderes.
-- **Loja 4**: Mistura de produtos populares e encalhados.
 - **Loja 3**: Baixa rotatividade de produtos.
+- **Loja 4**: Mistura de produtos populares e encalhados.
+
 
 ---
 
@@ -68,10 +70,10 @@ A seguir, o gráfico mostra o faturamento total de cada loja:
 
 ![Frete Médio](images/frete.png)
 
-- **Loja 2**: Frete mais barato.
-- **Loja 1**: Frete equilibrado.
-- **Loja 4**: Frete mais caro que a média.
-- **Loja 3**: Frete mais caro de todos.
+- **Loja 1**: Frete mais caro, porém tem a maior quantidade de vendas com frete maior de R$50,00.
+- **Loja 2**: Frete proximo da média.
+- **Loja 3**: Frete proximo da média.
+- **Loja 4**: Frete mais barato, quantidade alta em frete grátis.
 
 ---
 
@@ -79,28 +81,24 @@ A seguir, o gráfico mostra o faturamento total de cada loja:
 
 ![Mapa](images/mapa.png)
 
-- **Loja 1**: Alta concentração de vendas em áreas densas.
+- **Loja 1**: Alta concentração de vendas em áreas densas, porém atende todas as regiões.
 - **Loja 2**: Boas vendas regionais com alta satisfação.
-- **Loja 4**: Distribuição sem foco claro, performance geográfica inconsistente.
 - **Loja 3**: Alcance geográfico limitado.
+- **Loja 4**: Alcance geográfico limitado.
 
 ---
 
 ## ✅ Conclusão e Recomendação
 
-Com base nas análises apresentadas, **recomendamos que o Sr. João venda a Loja 3**.
+Com base nas análises apresentadas, **recomendamos que o Sr. João venda a Loja 4**.
 
 ### Justificativa:
 
-**Loja 3 apresenta os piores resultados gerais:**
+**Loja 4 apresenta os piores resultados gerais:**
 - Menor faturamento
-- Pior avaliação dos clientes
-- Frete mais caro
-- Produtos com baixa rotatividade
-- Baixa diversidade de categorias
 - Distribuição geográfica limitada
 
-**A Loja 4**, embora também apresente pontos fracos, **tem mais potencial de recuperação**, especialmente com ajustes logísticos e foco em categorias de maior saída.
+**A Loja 3**, embora também apresente pontos fracos, **tem mais potencial de recuperação**, especialmente com ajustes logísticos e foco em categorias de maior saída.
 
 ---
 
@@ -114,8 +112,8 @@ Com base nas análises apresentadas, **recomendamos que o Sr. João venda a Loja
 ### 📤 Próximos Passos
 
 Com base na decisão, recomendamos:
-- Vender a Loja 3 o quanto antes.
-- Reavaliar estratégias de logística e marketing para a Loja 4.
+- Vender a Loja 4 o quanto antes.
+- Reavaliar estratégias de logística e marketing para a Loja 3.
 - Investir na expansão e manutenção das Lojas 1 e 2.
 
 ---

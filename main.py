@@ -45,24 +45,6 @@ def soma_por_categoria(arquivo, coluna):
     soma = arquivo.groupby(coluna)["Preço"].sum().sort_values(ascending=False)
     return soma
 
-# Função que soma os valores de uma coluna numérica
-def soma_por_coluna(arquivo, coluna):
-    # Calcula a soma total da coluna especificada
-    soma = arquivo[coluna].sum()
-    return soma
-
-# Função que calcula a média dos valores de uma coluna numérica
-def media_por_coluna(arquivo, coluna):
-    # Calcula a média da coluna e arredonda para 2 casas decimais
-    media_valor = round(arquivo[coluna].mean(), 2)
-    return media_valor
-
-# Função que soma os valores da coluna "Preço" agrupando por uma categoria
-def soma_por_categoria(arquivo, coluna):
-    # Agrupa os dados pela categoria e soma os preços de cada grupo
-    soma = arquivo.groupby(coluna)["Preço"].sum().sort_values(ascending=False)
-    return soma
-
 # Função que conta a quantidade de produtos por tipo ou categoria
 def soma_produtos_tipo(arquivo, coluna):
     # Agrupa os dados pela coluna e conta quantas vezes cada valor aparece
@@ -73,6 +55,10 @@ def soma_produtos_tipo(arquivo, coluna):
 def hex_to_rgb(hex_color):
     hex_color = hex_color.lstrip('#')
     return [int(hex_color[i:i+2], 16) for i in (0, 2, 4)]
+
+# Função que conta produtos por categoria
+def contar_por_categoria(arquivo, coluna):
+    return arquivo[coluna].value_counts()
 
 
 # ==============================================
@@ -123,21 +109,22 @@ plt.show()
 # Lista com o faturamento por categoria para cada loja
 vendas_categoria = [soma_por_categoria(loja, 'Categoria do Produto') for loja in lojas]
 
-# Exibe o faturamento por categoria de cada loja
-for i, categoria in enumerate(vendas_categoria, start=1):
-    print(f'\nFaturamento por categoria - Loja {i}:\n')
-    for nome_categoria, total in categoria.items():
-        print(f' - {nome_categoria}: R$ {total:.2f}')
-    print()
+# Lista com a contagem de produtos por categoria para cada loja
+quantidade_categoria = [contar_por_categoria(loja, 'Categoria do Produto') for loja in lojas]
 
 # Concatena os dados por categoria
-df_categorias = pd.concat(vendas_categoria, axis=1)
+df_categorias = pd.concat(vendas_categoria, axis=1).fillna(0)
 df_categorias.columns = [f'Loja {i+1}' for i in range(len(lojas))]
-df_categorias = df_categorias.fillna(0)
+
+df_quantidade = pd.concat(quantidade_categoria, axis=1).fillna(0).astype(int)
+df_quantidade.columns = [f'Loja {i+1}' for i in range(len(lojas))]
+
+# Define cores diferentes por loja
+cores = ['#4CAF50', '#2196F3', '#FFC107', '#9C27B0']  # Verde, Azul, Amarelo, Roxo
 
 # Cria o gráfico de barras
-fig, ax = plt.subplots(figsize=(10, 6))
-df_categorias.plot(kind='bar', ax=ax, color=cores)
+fig, ax = plt.subplots(figsize=(12, 6))
+bar_container = df_categorias.plot(kind='bar', ax=ax, color=cores)
 
 # Título e rótulos
 ax.set_title('Faturamento por Categoria - Comparativo entre Lojas', fontsize=14)
@@ -146,6 +133,18 @@ ax.set_ylabel('Faturamento (R$)', fontsize=11)
 ax.legend(title='Lojas')
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
+
+# Adiciona as quantidades no topo das barras
+for bars, loja in zip(bar_container.containers, df_quantidade.columns):
+    for bar, (cat, qtd) in zip(bars, df_quantidade[loja].items()):
+        altura = bar.get_height()
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            altura,
+            f'{qtd}',
+            ha='center', va='bottom', fontsize=6, color='black'
+        )
+
 plt.show()
 
 
