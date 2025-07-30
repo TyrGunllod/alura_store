@@ -118,4 +118,3 @@ Com base na decisão, recomendamos:
 
 ---
 
-*Este relatório foi gerado com base em dados reais das vendas e análises exploratórias utilizando Python e bibliotecas de visualização como Matplotlib, Seaborn e Folium.*
